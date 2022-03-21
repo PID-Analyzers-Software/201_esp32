@@ -1,7 +1,7 @@
 # 201_esp32
  
-D4 ---- Switch
-D5 ---- Relay
+D4 ---- Switch \n
+D5 ---- Relay. \n
 ADS:
 A0 ---- Flowmeter
 
