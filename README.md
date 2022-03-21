@@ -1,6 +1,6 @@
 # 201_esp32
  
-D4 ---- Switcc.
+D4 ---- Switch.
 
 D5 ---- Relay.
 
