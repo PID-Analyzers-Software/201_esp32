@@ -4,7 +4,7 @@
 
 Adafruit_ADS1015 ads;     /* Use this for the 12-bit version */
 int buttonState = 0;
-
+float v_lowLimit = 1;
 int inputPin = 2;
 int outputPin = 5;
 SimpleKalmanFilter simpleKalmanFilter1(2, 2, 0.01);
@@ -32,9 +32,11 @@ void loop() {
   Serial.printf("flow=  '', v = %.2f v. \r\n", flow);
 
   //cases:
-  if (flow < 1) {
+  if (flow < v_lowLimit) {
     // turn the 201 off
     digitalWrite(outputPin, LOW);
+  } else {
+    digitalWrite(outputPin, HIGH);
   }
 
   if (buttonState == HIGH) {
