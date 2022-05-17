@@ -5,7 +5,7 @@
 Adafruit_ADS1015 ads;     /* Use this for the 12-bit version */
 int buttonState = 0;
 float v_lowLimit = 1;
-int inputPin = 2;
+int inputPin = 4;
 int outputPin = 5;
 SimpleKalmanFilter simpleKalmanFilter1(2, 2, 0.01);
 
