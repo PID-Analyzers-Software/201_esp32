@@ -1,8 +1,8 @@
 # 201_esp32
  
-D4 ---- Switch.
+D4 ---- Input for ESP32.
 
-D5 ---- Relay.
+D5 ---- Ooutput of the ESP32.
 
 ADS:
 
