@@ -4,7 +4,7 @@
 
 Adafruit_ADS1015 ads;     /* Use this for the 12-bit version */
 int buttonState = 0;
-float v_lowLimit = 1;
+float v_lowLimit = 1070, voltage;
 int inputPin = 4;
 int outputPin = 5;
 SimpleKalmanFilter simpleKalmanFilter1(2, 2, 0.01);
@@ -12,7 +12,7 @@ SimpleKalmanFilter simpleKalmanFilter1(2, 2, 0.01);
 // Serial output refresh time
 const long SERIAL_REFRESH_TIME = 100;
 long refresh_time;
-int16_t adc0, adc1, adc2, adc3, voltage;
+int16_t adc0, adc1, adc2, adc3;
 float flow_base;
 void setup() {
   Serial.begin(115200);
@@ -26,22 +26,26 @@ void loop() {
   buttonState = digitalRead(inputPin);
   // read a reference value from A0 and map it from 0 to 100
   adc0 = ads.readADC_SingleEnded(0);
+  voltage = adc0 * 2;
+
   float flow = simpleKalmanFilter1.updateEstimate(adc0);
   Serial.println(buttonState);
   Serial.println(adc0);
-  Serial.printf("flow=  '', v = %.2f v. \r\n", flow);
+  Serial.printf("flow=  %.2f, v = %.2f mV. \r\n", flow, voltage);
 
   //cases:
   if (flow < v_lowLimit) {
     // turn the 201 off
     digitalWrite(outputPin, LOW);
-  } else if(buttonState == LOW){
+    Serial.println("Turning OFF");
+    delay(1000);
+  } else if (buttonState == LOW) {
     digitalWrite(outputPin, HIGH);
   }
 
   if (buttonState == HIGH) {
-    Serial.println("Turning ON after 5 seconds. (will change to 5 minutes after test");
-    delay(5*1000);
+    Serial.println("Turning ON after 5 seconds.");
+    delay(5 *60* 1000);
     digitalWrite(outputPin, HIGH);
   }
   delay(500);
