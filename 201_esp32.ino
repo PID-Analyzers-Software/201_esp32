@@ -23,29 +23,20 @@ void setup() {
 void loop() {
   // read a reference value from A0 and map it from 0 to 100
   adc0 = ads.readADC_SingleEnded(0);
-  adc1 = ads.readADC_SingleEnded(1);
   float voltage0 = simpleKalmanFilter1.updateEstimate(adc0 * 2);
-  float voltage1 = adc1 * 2;
-  Serial.printf("flow=  %.2f mV. adc1 = %.2f mV.\r\n", voltage0, voltage1);
-  if (voltage1 > 900) {
-    Serial.println("Input High");
-  } else {
-    Serial.println("Input Low");
-  }
-
-  Serial.println("10 seconds delay started(test)");
-  delay(10 * 1000);
-
+  Serial.printf("flow=  %.2f mV.\r\n", voltage0);
 
   //cases:
   if (voltage0 < v_lowLimit) {
     // turn the 201 off
+    Serial.println("Flow: LOW. Turning OFF");
     digitalWrite(outputPin, HIGH);
-    Serial.println("Turning OFF");
     delay(200);
-  } else if (voltage1 > 900) {
-    Serial.println("Turning ON.");
+  } else {
+    Serial.println("Flow: Good. 3 minutes delay started");
+    delay(3* 60 * 1000);
+    Serial.println("Turning ON");
     digitalWrite(outputPin, LOW);
+    delay(200);
   }
-  delay(100);
 }
