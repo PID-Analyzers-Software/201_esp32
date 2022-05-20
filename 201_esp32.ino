@@ -4,7 +4,7 @@
 
 Adafruit_ADS1015 ads;     /* Use this for the 12-bit version */
 int buttonState = 0;
-float v_lowLimit = 1070, voltage0, voltage1;
+float v_lowLimit = 1070;
 int inputPin = 4;
 int outputPin = 5;
 SimpleKalmanFilter simpleKalmanFilter1(2, 2, 0.01);
@@ -27,24 +27,24 @@ void loop() {
   // read a reference value from A0 and map it from 0 to 100
   adc0 = ads.readADC_SingleEnded(0);
   adc1 = ads.readADC_SingleEnded(1);
-  float voltage = simpleKalmanFilter1.updateEstimate(adc0 * 2);
-  float voltage2 = adc1 * 2;
-  Serial.printf("flow=  %.2f mV. adc1 = %.2f mV.\r\n", voltage, voltage2);
-  if (voltage2 > 900) {
+  float voltage0 = simpleKalmanFilter1.updateEstimate(adc0 * 2);
+  float voltage1 = adc1 * 2;
+  Serial.printf("flow=  %.2f mV. adc1 = %.2f mV.\r\n", voltage0, voltage1);
+  if (voltage1 > 900) {
     Serial.println("Input High");
   } else {
     Serial.println("Input Low");
   }
   //cases:
-  if (voltage < v_lowLimit) {
+  if (voltage0 < v_lowLimit) {
     // turn the 201 off
     digitalWrite(outputPin, LOW);
     Serial.println("Turning OFF");
     delay(200);
-  } else if (voltage2 > 900) {
+  } else if (voltage1 > 900) {
     Serial.println("Turning ON after 10 seconds (test).");
     delay(10 * 1000);
     digitalWrite(outputPin, HIGH);
   }
-  delay(50);
+  delay(100);
 }
