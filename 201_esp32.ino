@@ -30,13 +30,13 @@ void loop() {
   if (voltage0 < v_lowLimit) {
     // turn the 201 off
     Serial.println("Flow: LOW. Turning OFF");
-    digitalWrite(outputPin, HIGH);
+    digitalWrite(outputPin, LOW);
     delay(200);
   } else {
     Serial.println("Flow: Good. 3 minutes delay started");
     delay(3* 60 * 1000);
     Serial.println("Turning ON");
-    digitalWrite(outputPin, LOW);
+    digitalWrite(outputPin, HIGH);
     delay(200);
   }
 }
