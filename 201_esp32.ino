@@ -48,5 +48,5 @@ void loop() {
     delay(3 * 60 * 1000);
     digitalWrite(outputPin, HIGH);
   }
-  delay(500);
+  delay(50);
 }
