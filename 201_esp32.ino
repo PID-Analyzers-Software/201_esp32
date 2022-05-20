@@ -45,7 +45,7 @@ void loop() {
 
   if (adc1 > 100) {
     Serial.println("Turning ON after 3 minutes.");
-    delay(3 * 60 * 1000);
+    delay(3  * 1000);
     digitalWrite(outputPin, HIGH);
   }
   delay(50);
