@@ -26,26 +26,26 @@ void loop() {
   buttonState = digitalRead(inputPin);
   // read a reference value from A0 and map it from 0 to 100
   adc0 = ads.readADC_SingleEnded(0);
-  voltage = adc0 * 2;
 
-  float flow = simpleKalmanFilter1.updateEstimate(adc0);
-  Serial.println(buttonState);
-  Serial.println(adc0);
-  Serial.printf("flow=  %.2f, v = %.2f mV. \r\n", flow, voltage);
+  float voltage = simpleKalmanFilter1.updateEstimate(adc0 * 2);
+  if (buttonState == HIGH) {
+    Serial.println("Input High");
+  } else{
+    Serial.println("Input Low");
+  }
+  Serial.printf("flow=  %.2f mv. \r\n", voltage);
 
   //cases:
-  if (flow < v_lowLimit) {
+  if (voltage < v_lowLimit) {
     // turn the 201 off
     digitalWrite(outputPin, LOW);
     Serial.println("Turning OFF");
-    delay(1000);
-  } else if (buttonState == LOW) {
-    digitalWrite(outputPin, HIGH);
+    delay(2000);
   }
 
   if (buttonState == HIGH) {
     Serial.println("Turning ON after 3 minutes.");
-    delay(3 *60* 1000);
+    delay(3 * 60 * 1000);
     digitalWrite(outputPin, HIGH);
   }
   delay(500);
