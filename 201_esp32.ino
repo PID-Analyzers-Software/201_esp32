@@ -3,12 +3,10 @@
 #include "Adafruit_ADS1015.h"
 
 Adafruit_ADS1015 ads;     /* Use this for the 12-bit version */
-int buttonState = 0;
 float v_lowLimit = 1070;
 int inputPin = 4;
 int outputPin = 5;
 SimpleKalmanFilter simpleKalmanFilter1(2, 2, 0.01);
-//SimpleKalmanFilter simpleKalmanFilter2(2, 2, 0.01);
 
 // Serial output refresh time
 const long SERIAL_REFRESH_TIME = 100;
@@ -35,16 +33,17 @@ void loop() {
   } else {
     Serial.println("Input Low");
   }
+  
   //cases:
   if (voltage0 < v_lowLimit) {
     // turn the 201 off
-    digitalWrite(outputPin, LOW);
+    digitalWrite(outputPin, HIGH);
     Serial.println("Turning OFF");
     delay(200);
   } else if (voltage1 > 900) {
     Serial.println("Turning ON after 10 seconds (test).");
     delay(10 * 1000);
-    digitalWrite(outputPin, HIGH);
+    digitalWrite(outputPin, LOW);
   }
   delay(100);
 }
