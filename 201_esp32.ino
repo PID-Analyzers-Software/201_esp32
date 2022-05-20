@@ -21,7 +21,6 @@ void setup() {
 }
 
 void loop() {
-  buttonState = digitalRead(inputPin);
   // read a reference value from A0 and map it from 0 to 100
   adc0 = ads.readADC_SingleEnded(0);
   adc1 = ads.readADC_SingleEnded(1);
@@ -33,7 +32,11 @@ void loop() {
   } else {
     Serial.println("Input Low");
   }
-  
+
+  Serial.println("10 seconds delay started(test)");
+  delay(10 * 1000);
+
+
   //cases:
   if (voltage0 < v_lowLimit) {
     // turn the 201 off
@@ -41,8 +44,7 @@ void loop() {
     Serial.println("Turning OFF");
     delay(200);
   } else if (voltage1 > 900) {
-    Serial.println("Turning ON after 10 seconds (test).");
-    delay(10 * 1000);
+    Serial.println("Turning ON.");
     digitalWrite(outputPin, LOW);
   }
   delay(100);
