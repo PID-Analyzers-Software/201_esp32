@@ -36,17 +36,17 @@ void loop() {
   //cases:
   if (flow < v_lowLimit) {
     // turn the 201 off
-    digitalWrite(outputPin, HIGH);
+    digitalWrite(outputPin, LOW);
     Serial.println("Turning OFF");
     delay(1000);
   } else if (buttonState == LOW) {
-    digitalWrite(outputPin, LOW);
+    digitalWrite(outputPin, HIGH);
   }
 
   if (buttonState == HIGH) {
-    Serial.println("Turning ON after 5 seconds.");
-    delay(5 *60* 1000);
-    digitalWrite(outputPin, LOW);
+    Serial.println("Turning ON after 3 minutes.");
+    delay(3 *60* 1000);
+    digitalWrite(outputPin, HIGH);
   }
   delay(500);
 
