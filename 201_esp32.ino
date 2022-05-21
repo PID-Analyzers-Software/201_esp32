@@ -6,6 +6,7 @@ Adafruit_ADS1015 ads;     /* Use this for the 12-bit version */
 float v_lowLimit = 1070;
 int inputPin = 4;
 int outputPin = 5;
+bool state = false;
 SimpleKalmanFilter simpleKalmanFilter1(2, 2, 0.01);
 
 // Serial output refresh time
@@ -25,18 +26,23 @@ void loop() {
   adc0 = ads.readADC_SingleEnded(0);
   float voltage0 = simpleKalmanFilter1.updateEstimate(adc0 * 2);
   Serial.printf("flow=  %.2f mV.\r\n", voltage0);
+  Serial.println(state);
 
   //cases:
   if (voltage0 < v_lowLimit) {
-    // turn the 201 off
-    Serial.println("Flow: LOW. Turning OFF");
-    digitalWrite(outputPin, LOW);
-    delay(200);
-  } else {
-    Serial.println("Flow: Good. 3 minutes delay started");
-    delay(3* 60 * 1000);
-    Serial.println("Turning ON");
+    Serial.println("Flow: LOW. Turning ON");
+    if (state == true) {
+      Serial.println("5 Minutes delay started");
+      delay(5 * 60 * 1000);
+      state = false;
+    }
     digitalWrite(outputPin, HIGH);
-    delay(200);
+    delay(300);
+  } else {
+    Serial.println("Flow: Good.");
+    Serial.println("Turning OFF");
+    state = true;
+    digitalWrite(outputPin, LOW);
+    delay(300);
   }
 }
