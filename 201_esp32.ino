@@ -35,6 +35,7 @@ void loop() {
       Serial.println("5 Minutes delay started");
       delay(5 * 60 * 1000);
       state = false;
+      return;
     }
     digitalWrite(outputPin, HIGH);
     delay(300);
