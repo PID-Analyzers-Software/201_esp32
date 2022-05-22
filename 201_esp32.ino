@@ -18,6 +18,9 @@ void setup() {
   ads.begin();
   ads.setGain(GAIN_ONE);
   pinMode(outputPin, OUTPUT);
+  digitalWrite(outputPin, LOW);
+  Serial.println("3 Minutes delay started");
+  delay(3 * 60 * 1000);
   pinMode(inputPin, INPUT);
 }
 
@@ -35,7 +38,6 @@ void loop() {
       Serial.println("5 Minutes delay started");
       delay(5 * 60 * 1000);
       state = false;
-      return;
     }
     digitalWrite(outputPin, HIGH);
     delay(300);
