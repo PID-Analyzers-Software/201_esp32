@@ -5,7 +5,7 @@
 Adafruit_ADS1015 ads;     /* Use this for the 12-bit version */
 float v_lowLimit = 1070;
 int inputPin = 4;
-int outputPin = 27;
+int outputPin = 4;
 bool state = true;
 float voltage0 = 3000;
 SimpleKalmanFilter simpleKalmanFilter1(2, 2, 0.01);
