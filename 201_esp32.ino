@@ -20,7 +20,7 @@ void setup() {
   pinMode(outputPin, INPUT);
   //digitalWrite(outputPin, LOW);
   Serial.println("3 Minutes delay started");
-  delay(3 * 1000);
+  delay(3 *60* 1000);
 }
 
 void loop() {
