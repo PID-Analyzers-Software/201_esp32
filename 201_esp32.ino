@@ -21,13 +21,14 @@ void setup() {
   digitalWrite(outputPin, LOW);
   Serial.println("3 Minutes delay started");
   delay(3 * 60 * 1000);
+  float voltage0 = 3000;
   pinMode(inputPin, INPUT);
 }
 
 void loop() {
   // read a reference value from A0 and map it from 0 to 100
   adc0 = ads.readADC_SingleEnded(0);
-  float voltage0 = simpleKalmanFilter1.updateEstimate(adc0 * 2);
+  voltage0 = simpleKalmanFilter1.updateEstimate(adc0 * 2);
   Serial.printf("flow=  %.2f mV.\r\n", voltage0);
   Serial.println(state);
 
