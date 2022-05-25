@@ -17,10 +17,11 @@ void setup() {
   Serial.begin(115200);
   ads.begin();
   ads.setGain(GAIN_ONE);
-  pinMode(outputPin, INPUT);
-  //digitalWrite(outputPin, LOW);
+  pinMode(outputPin, OUTPUT);
+  digitalWrite(outputPin, LOW);
   Serial.println("3 Minutes delay started");
-  delay(3 *60* 1000);
+  delay(3 * 60 * 1000);
+  pinMode(inputPin, INPUT);
 }
 
 void loop() {
@@ -33,7 +34,6 @@ void loop() {
   //cases:
   if (voltage0 < v_lowLimit) {
     Serial.println("Flow: LOW. Turning ON");
-    pinMode(outputPin, OUTPUT);
     if (state == true) {
       Serial.println("5 Minutes delay started");
       delay(5 * 60 * 1000);
@@ -42,11 +42,13 @@ void loop() {
     digitalWrite(outputPin, HIGH);
     delay(300);
   } else {
-    pinMode(outputPin, INPUT);
+    if (state == false) {
+      digitalWrite(outputPin, LOW);
+    }
     Serial.println("Flow: Good.");
     Serial.println("Turning OFF");
     state = true;
-    //digitalWrite(outputPin, LOW);
     delay(300);
   }
 }
+
