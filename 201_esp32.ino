@@ -39,6 +39,7 @@ void loop() {
       delay(5 * 60 * 1000);
       state = false;
     }
+    state = false;
     digitalWrite(outputPin, HIGH);
     delay(300);
   } else {
