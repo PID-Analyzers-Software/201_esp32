@@ -2,7 +2,7 @@
  
 D4 ---- Input for ESP32.
 
-D5 ---- Ooutput of the ESP32.
+D5 ---- Output of the ESP32.
 
 ADS:
 
