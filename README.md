@@ -1,14 +1,16 @@
 # 201_esp32
  
-D4 ---- Input for ESP32.
+Board: Adafruit Huzzah 32
 
-D5 ---- Output of the ESP32.
+D32 ---- Output of the ESP32.
 
-ADS:
+ADS: SDA SCL
 
-A0 ---- Flowmeter
+ - A0 ---- Flowmeter
 
-startup time = 3 minutes
+startup delay = 3 minutes
+
+delay when flow drop below = 5 minutes
 
 Calibration parameter:
 
