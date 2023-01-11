@@ -3,7 +3,7 @@
 #include "Adafruit_ADS1015.h"
 
 Adafruit_ADS1015 ads;     /* Use this for the 12-bit version */
-float v_lowLimit = 1070;
+float v_lowLimit = 2000;
 int inputPin = 15;
 int outputPin = 32;
 bool state = true;
@@ -42,7 +42,7 @@ void loop() {
     Serial.println("Flow: LOW. Turning ON");
     if (state == true) {
       Serial.println("5 Minutes delay started");
-      delay(5 * 60 * 1000);
+      //delay(5 * 60 * 1000);
       state = false;
     }
     state = false;
