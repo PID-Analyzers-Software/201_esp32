@@ -3,7 +3,9 @@
 #include "Adafruit_ADS1015.h"
 
 Adafruit_ADS1015 ads;     /* Use this for the 12-bit version */
-float v_lowLimit = 2000;
+float v_lowLimit = 1027;
+float v_highLimit = 1080;
+
 int inputPin = 15;
 int outputPin = 32;
 bool state = true;
@@ -21,7 +23,7 @@ void setup() {
   pinMode(outputPin, OUTPUT);
   digitalWrite(outputPin, LOW);
   Serial.println("3 Minutes delay started");
-  delay(3 * 60 * 1000);
+  delay(3 * 60 * 1);
   for (int i = 0; i <= 10; i++) {
     adc0 = ads.readADC_SingleEnded(0);
     voltage0 = simpleKalmanFilter1.updateEstimate(adc0 * 2);
@@ -42,13 +44,26 @@ void loop() {
     Serial.println("Flow: LOW. Turning ON");
     if (state == true) {
       Serial.println("5 Minutes delay started");
-      //delay(5 * 60 * 1000);
+      delay(5 * 60 * 1000);
+      Serial.println("5 Minutes delay finished");
       state = false;
     }
     state = false;
     digitalWrite(outputPin, HIGH);
     delay(300);
-  } else {
+  } else if (voltage0 > v_highLimit) {
+    Serial.println("Flow: HIGH. Turning ON");
+    if (state == true) {
+      Serial.println("5 Minutes delay started");
+      delay(5 * 60 * 1000);
+      state = false;
+      Serial.println("5 Minutes delay finished");
+    }
+    state = false;
+    digitalWrite(outputPin, HIGH);
+    delay(300);
+  }
+  else {
     if (state == false) {
       digitalWrite(outputPin, LOW);
     }
