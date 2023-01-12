@@ -6,6 +6,7 @@ D32 ---- Output of the ESP32.
 
 
 lower limit: 1027 mV
+
 higher limit: 1080 mV
 
 
