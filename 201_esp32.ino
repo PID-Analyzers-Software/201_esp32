@@ -9,7 +9,7 @@ float v_highLimit = 1080;
 int inputPin = 15;
 int outputPin = 32;
 bool state = true;
-float voltage0 = 3000;
+float voltage0 = 1050;
 SimpleKalmanFilter simpleKalmanFilter1(2, 2, 0.01);
 
 // Serial output refresh time
@@ -24,10 +24,10 @@ void setup() {
   digitalWrite(outputPin, HIGH);
   Serial.println("3 Minutes delay started");
   delay(3 * 60 * 1);
-  for (int i = 0; i <= 10; i++) {
+  for (int i = 0; i <= 20; i++) {
     adc0 = ads.readADC_SingleEnded(0);
     voltage0 = simpleKalmanFilter1.updateEstimate(adc0 * 2);
-    delay(100);
+    delay(10);
   }
 }
 
