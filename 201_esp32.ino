@@ -62,6 +62,11 @@ void loop() {
     if (state == true) {
       Serial.println("5 Minutes delay started");
       delay(5 * 60 * 1000);
+      for (int i = 0; i <= 20; i++) {
+        adc0 = ads.readADC_SingleEnded(0);
+        voltage0 = simpleKalmanFilter1.updateEstimate(1050);
+        delay(10);
+      }
       state = false;
       Serial.println("5 Minutes delay finished");
     }
