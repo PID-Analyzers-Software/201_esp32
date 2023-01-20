@@ -4,8 +4,8 @@
 #include <movingAvg.h>                  // https://github.com/JChristensen/movingAvg
 
 Adafruit_ADS1015 ads;     /* Use this for the 12-bit version */
-float v_lowLimit = 1027;
-float v_highLimit = 1080;
+float v_lowLimit = 1015;
+float v_highLimit = 1090;
 
 int inputPin = 15;
 int outputPin = 32;
