@@ -25,16 +25,11 @@ void setup() {
   Serial.println("Start up 3 Minutes delay started");
   delay(3 * 60 * 1000);
   Serial.println("Start up 3 Minutes delay finished");
-  for (int i = 0; i <= 20; i++) {
-    adc0 = ads.readADC_SingleEnded(0);
+  for (int i = 0; i <= 50; i++) {
     voltage0 = simpleKalmanFilter1.updateEstimate(1050);
     delay(10);
   }
-  for (int i = 0; i <= 3; i++) {
-    adc0 = ads.readADC_SingleEnded(0);
-    voltage0 = simpleKalmanFilter1.updateEstimate(adc0 * 2);
-    delay(10);
-  }
+
 }
 
 void loop() {
@@ -62,11 +57,11 @@ void loop() {
     if (state == true) {
       Serial.println("5 Minutes delay started");
       delay(5 * 60 * 1000);
-      for (int i = 0; i <= 20; i++) {
-        adc0 = ads.readADC_SingleEnded(0);
+      for (int i = 0; i <= 50; i++) {
         voltage0 = simpleKalmanFilter1.updateEstimate(1050);
         delay(10);
       }
+
       state = false;
       Serial.println("5 Minutes delay finished");
     }
