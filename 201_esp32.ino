@@ -45,24 +45,33 @@ void loop() {
 
   //cases:
   if (voltage0 < v_lowLimit) {
-    Serial.println("Flow: LOW. Turning ON");
+    Serial.println("Flow: LOW. Turning ON delay ready to start");
     if (state == true) {
       Serial.println("5 Minutes delay started");
       delay(5 * 60 * 1000);
-      
+
       for (int i = 0; i <= 10; i++) {
         voltage0 = avgFlow.reading(1050);
         delay(10);
       }
-      
+
       Serial.println("5 Minutes delay finished");
       state = false;
     }
     state = false;
-    digitalWrite(outputPin, LOW);
+    for (int i = 0; i <= 5; i++) {
+      adc0 = ads.readADC_SingleEnded(0);
+      voltage0 = avgFlow.reading(adc0 * 2);
+      delay(10);
+    }
+    if (voltage0 < v_lowLimit) {
+      Serial.println("Flow still low, turning ON");
+
+      digitalWrite(outputPin, LOW);
+    }
     delay(300);
   } else if (voltage0 > v_highLimit) {
-    Serial.println("Flow: HIGH. Turning ON");
+    Serial.println("Flow: HIGH. Turning ON delay ready to start");
     if (state == true) {
       Serial.println("5 Minutes delay started");
       delay(5 * 60 * 1000);
@@ -76,7 +85,15 @@ void loop() {
       Serial.println("5 Minutes delay finished");
     }
     state = false;
-    digitalWrite(outputPin, LOW);
+    for (int i = 0; i <= 5; i++) {
+      adc0 = ads.readADC_SingleEnded(0);
+      voltage0 = avgFlow.reading(adc0 * 2);
+      delay(10);
+    }
+    if (voltage0 > v_highLimit) {
+      Serial.println("Flow still high, turning ON");
+      digitalWrite(outputPin, LOW);
+    }
     delay(300);
   }
   else {
