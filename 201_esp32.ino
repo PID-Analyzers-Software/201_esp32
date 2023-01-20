@@ -22,9 +22,9 @@ void setup() {
   ads.setGain(GAIN_ONE);
   pinMode(outputPin, OUTPUT);
   digitalWrite(outputPin, HIGH);
-  Serial.println("half Minutes delay started");
-  delay(0.5 * 60 * 1000);
-  Serial.println("half Minutes delay finished");
+  Serial.println("5 Minutes delay started");
+  delay(5 * 60 * 1000);
+  Serial.println("5 Minutes delay finished");
   for (int i = 0; i <= 20; i++) {
     adc0 = ads.readADC_SingleEnded(0);
     voltage0 = simpleKalmanFilter1.updateEstimate(1050);
