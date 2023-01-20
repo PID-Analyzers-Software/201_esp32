@@ -25,7 +25,7 @@ void setup() {
   Serial.println("Start up 3 Minutes delay started");
   delay(3 * 60 * 1000);
   Serial.println("Start up 3 Minutes delay finished");
-  for (int i = 0; i <= 50; i++) {
+  for (int i = 0; i <= 70; i++) {
     voltage0 = simpleKalmanFilter1.updateEstimate(1050);
     delay(10);
   }
@@ -57,7 +57,7 @@ void loop() {
     if (state == true) {
       Serial.println("5 Minutes delay started");
       delay(5 * 60 * 1000);
-      for (int i = 0; i <= 50; i++) {
+      for (int i = 0; i <= 70; i++) {
         voltage0 = simpleKalmanFilter1.updateEstimate(1050);
         delay(10);
       }
