@@ -25,10 +25,10 @@ void setup() {
   Serial.println("Start up 3 Minutes delay started");
   delay(3 * 60 * 1000);
   Serial.println("Start up 3 Minutes delay finished");
-  for (int i = 0; i <= 70; i++) {
-    voltage0 = simpleKalmanFilter1.updateEstimate(1050);
-    delay(10);
-  }
+  //  for (int i = 0; i <= 70; i++) {
+  //    voltage0 = simpleKalmanFilter1.updateEstimate(1050);
+  //    delay(10);
+  //  }
 
 }
 
@@ -36,7 +36,7 @@ void loop() {
   // read a reference value from A0 and map it from 0 to 100
 
   adc0 = ads.readADC_SingleEnded(0);
-  voltage0 = simpleKalmanFilter1.updateEstimate(adc0 * 2);
+  voltage0 = adc0 * 2;
   Serial.printf("flow=  %.2f mV.\r\n", voltage0);
   Serial.println(state);
 
@@ -57,10 +57,7 @@ void loop() {
     if (state == true) {
       Serial.println("5 Minutes delay started");
       delay(5 * 60 * 1000);
-      for (int i = 0; i <= 70; i++) {
-        voltage0 = simpleKalmanFilter1.updateEstimate(1050);
-        delay(10);
-      }
+
 
       state = false;
       Serial.println("5 Minutes delay finished");
