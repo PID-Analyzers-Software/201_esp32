@@ -30,7 +30,7 @@ void setup() {
     voltage0 = simpleKalmanFilter1.updateEstimate(1050);
     delay(10);
   }
-  for (int i = 0; i <= 20; i++) {
+  for (int i = 0; i <= 3; i++) {
     adc0 = ads.readADC_SingleEnded(0);
     voltage0 = simpleKalmanFilter1.updateEstimate(adc0 * 2);
     delay(10);
