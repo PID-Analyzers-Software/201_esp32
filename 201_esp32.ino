@@ -40,7 +40,7 @@ void setup() {
   Serial.println("Start up 3 Minutes delay finished");
   SerialBT.println("Start up 3 Minutes delay finished");
 
-  for (int i = 0; i <= 10; i++) {
+  for (int i = 0; i <= 50; i++) {
     voltage0 = avgFlow.reading(1050);
     delay(10);
   }
