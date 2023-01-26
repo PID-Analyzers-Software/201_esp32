@@ -80,6 +80,10 @@ void loop() {
       state = false;
     }
     state = false;
+      for (int i = 0; i <= 100; i++) {
+    voltage0 = avgFlow.reading(1050);
+    delay(10);
+  }
     for (int i = 0; i <= 5; i++) {
       adc0 = ads.readADC_SingleEnded(0);
       voltage0 = avgFlow.reading(adc0 * 2);
@@ -113,6 +117,10 @@ void loop() {
 
     }
     state = false;
+      for (int i = 0; i <= 100; i++) {
+    voltage0 = avgFlow.reading(1050);
+    delay(10);
+  }
     for (int i = 0; i <= 5; i++) {
       adc0 = ads.readADC_SingleEnded(0);
       voltage0 = avgFlow.reading(adc0 * 2);
