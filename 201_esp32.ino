@@ -19,7 +19,7 @@ int outputPin = 32;
 bool state = true;
 float voltage0 = 1050;
 //SimpleKalmanFilter simpleKalmanFilter1(2, 2, 0.01);
-movingAvg avgFlow(10);
+movingAvg avgFlow(20);
 // Serial output refresh time
 const long SERIAL_REFRESH_TIME = 100;
 long refresh_time;
@@ -40,7 +40,7 @@ void setup() {
   Serial.println("Start up 3 Minutes delay finished");
   SerialBT.println("Start up 3 Minutes delay finished");
 
-  for (int i = 0; i <= 50; i++) {
+  for (int i = 0; i <= 60; i++) {
     voltage0 = avgFlow.reading(1050);
     delay(10);
   }
