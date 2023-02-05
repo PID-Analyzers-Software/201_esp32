@@ -139,7 +139,7 @@ void loop() {
       if (voltage0 > v_highLimit) {
         Serial.println("Flow still high, turning LOW");
         SerialBT.println("Flow still high, turning LOW");
-
+        state = false;
         digitalWrite(outputPin, LOW);
       }
       delay(100);
@@ -154,6 +154,8 @@ void loop() {
     SerialBT.println("Turning OFF");
 
     state = true;
+    digitalWrite(outputPin, HIGH);
+
     delay(100);
   }
 }
