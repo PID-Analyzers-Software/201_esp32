@@ -20,7 +20,7 @@ bool state = true;
 float voltage0 = (v_highLimit + v_lowLimit) / 2;
 int V_filterReset = (v_highLimit + v_lowLimit) / 2;
 // Set moving averaging sampling rate.
-movingAvg avgFlow(10);
+movingAvg avgFlow(15);
 // Serial output refresh time
 const long SERIAL_REFRESH_TIME = 100;
 long refresh_time;
@@ -36,13 +36,13 @@ void setup() {
   avgFlow.begin();
 
   digitalWrite(outputPin, HIGH);
-  Serial.println("Start up 3 Minutes delay started");
-  SerialBT.println("Start up 3 Minutes delay started");
+  Serial.println("Start up 60 seconds delay started");
+  SerialBT.println("Start up 60 seconds delay started");
 
-  delay(3 * 60 * 1000);
-  Serial.println("Start up 3 Minutes delay finished");
-  SerialBT.println("Start up 3 Minutes delay finished");
-
+  delay(1 * 60 * 1000);
+  Serial.println("Start up 60 seconds delay finished");
+  SerialBT.println("Start up 60 seconds delay finished");
+  
   for (int i = 0; i <= 20; i++) {
     voltage0 = avgFlow.reading(V_filterReset);
     delay(10);
@@ -66,18 +66,18 @@ void loop() {
     //state:true(the flow good, ON)
     //     :false(the flow no good, OFF)
     if (state == true) {
-      Serial.println("5 Minutes delay started");
-      SerialBT.println("5 Minutes delay started");
+      Serial.println("60 seconds delay started");
+      SerialBT.println("60 seconds delay started");
 
-      delay(5 * 60 * 1000);
+      delay(1 * 60 * 1000);
 
       for (int i = 0; i <= 10; i++) {
         voltage0 = avgFlow.reading(V_filterReset);
         delay(10);
       }
 
-      Serial.println("5 Minutes delay finished");
-      SerialBT.println("5 Minutes delay finished");
+      Serial.println("60 seconds delay finished");
+      SerialBT.println("60 seconds delay finished");
 
       // add buffer after delay finished.
       for (int i = 0; i <= 20; i++) {
@@ -107,18 +107,18 @@ void loop() {
     SerialBT.println("Flow: HIGH. Turning LOW delay ready to start");
 
     if (state == true) {
-      Serial.println("5 Minutes delay started");
-      SerialBT.println("5 Minutes delay started");
+      Serial.println("60 seconds delay started");
+      SerialBT.println("60 seconds delay started");
 
-      delay(5 * 60 * 1000);
+      delay(1 * 60 * 1000);
 
       for (int i = 0; i <= 10; i++) {
         voltage0 = avgFlow.reading(V_filterReset);
         delay(10);
       }
-
-      Serial.println("5 Minutes delay finished");
-      SerialBT.println("5 Minutes delay finished");
+      
+      Serial.println("60 seconds delay finished");
+      SerialBT.println("60 seconds delay finished");
 
 
       // add buffer after delay finished.
@@ -144,17 +144,16 @@ void loop() {
       }
       delay(100);
     }
-  }
-  else {
+  } else if (voltage0 < v_highLimit && voltage0 > v_lowLimit) {
 
     Serial.println("Flow: Good.");
     SerialBT.println("Flow: Good.");
 
-    Serial.println("Turning OFF");
-    SerialBT.println("Turning OFF");
-
+//    Serial.println("Turning OFF");
+//    SerialBT.println("Turning OFF");
+//
     state = true;
-    digitalWrite(outputPin, HIGH);
+//    digitalWrite(outputPin, HIGH);
 
     delay(100);
   }
