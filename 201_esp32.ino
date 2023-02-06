@@ -20,7 +20,7 @@ bool state = true;
 float voltage0 = (v_highLimit + v_lowLimit) / 2;
 int V_filterReset = (v_highLimit + v_lowLimit) / 2;
 // Set moving averaging sampling rate.
-movingAvg avgFlow(15);
+movingAvg avgFlow(10);
 // Serial output refresh time
 const long SERIAL_REFRESH_TIME = 100;
 long refresh_time;
@@ -42,7 +42,7 @@ void setup() {
   delay(1 * 60 * 1000);
   Serial.println("Start up 60 seconds delay finished");
   SerialBT.println("Start up 60 seconds delay finished");
-  
+
   for (int i = 0; i <= 20; i++) {
     voltage0 = avgFlow.reading(V_filterReset);
     delay(10);
@@ -61,11 +61,12 @@ void loop() {
 
   //cases:
   if (voltage0 < v_lowLimit) {
-    Serial.println("Flow: LOW. Turning LOW delay ready to start");
-    SerialBT.println("Flow: LOW. Turning LOW delay ready to start");
+
     //state:true(the flow good, ON)
     //     :false(the flow no good, OFF)
     if (state == true) {
+      Serial.println("Flow: LOW. Turning LOW delay ready to start");
+      SerialBT.println("Flow: LOW. Turning LOW delay ready to start");
       Serial.println("60 seconds delay started");
       SerialBT.println("60 seconds delay started");
 
@@ -101,12 +102,15 @@ void loop() {
         digitalWrite(outputPin, LOW);
       }
       delay(100);
+    } else {
+      Serial.println("Flow: LOW. The unit is OFF");
+      SerialBT.println("Flow: LOW. The unit is OFF");
     }
   } else if (voltage0 > v_highLimit) {
-    Serial.println("Flow: HIGH. Turning LOW delay ready to start");
-    SerialBT.println("Flow: HIGH. Turning LOW delay ready to start");
 
     if (state == true) {
+      Serial.println("Flow: HIGH. Turning LOW delay ready to start");
+      SerialBT.println("Flow: HIGH. Turning LOW delay ready to start");
       Serial.println("60 seconds delay started");
       SerialBT.println("60 seconds delay started");
 
@@ -116,7 +120,7 @@ void loop() {
         voltage0 = avgFlow.reading(V_filterReset);
         delay(10);
       }
-      
+
       Serial.println("60 seconds delay finished");
       SerialBT.println("60 seconds delay finished");
 
@@ -143,18 +147,23 @@ void loop() {
         digitalWrite(outputPin, LOW);
       }
       delay(100);
+    } else {
+      Serial.println("Flow: HIGH. The unit is OFF");
+      SerialBT.println("Flow: HIGH. The unit is OFF");
     }
   } else if (voltage0 < v_highLimit && voltage0 > v_lowLimit) {
 
     Serial.println("Flow: Good.");
     SerialBT.println("Flow: Good.");
-
-//    Serial.println("Turning OFF");
-//    SerialBT.println("Turning OFF");
-//
-    state = true;
-//    digitalWrite(outputPin, HIGH);
-
+    if (state == false) {
+      //
+      //      delay(5000);
+      //      Serial.println("Turning HIGH");
+      //      SerialBT.println("Turning HIGH");
+      //
+      //      state = true;
+      //      digitalWrite(outputPin, HIGH);
+    }
     delay(100);
   }
 }
