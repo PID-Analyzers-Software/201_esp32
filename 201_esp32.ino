@@ -43,16 +43,20 @@ void setup() {
   Serial.println("Start up 60 seconds delay finished");
   SerialBT.println("Start up 60 seconds delay finished");
 
-  for (int i = 0; i <= 20; i++) {
-    voltage0 = avgFlow.reading(V_filterReset);
-    delay(10);
-  }
+      for (int i = 0; i <= 15; i++) {
+        adc0 = ads.readADC_SingleEnded(0);
+        voltage0 = avgFlow.reading(adc0 * 2);
+        delay(10);
+      }
 }
 
 void loop() {
   // read a reference value from A0 and map it from 0 to 100
-  adc0 = ads.readADC_SingleEnded(0);
-  voltage0 = avgFlow.reading(adc0 * 2);
+      for (int i = 0; i <= 10; i++) {
+        adc0 = ads.readADC_SingleEnded(0);
+        voltage0 = avgFlow.reading(adc0 * 2);
+        delay(10);
+      }
   Serial.printf("flow=  %.2f mV.\r\n", voltage0);
   SerialBT.printf("flow=  %.2f mV.\r\n", voltage0);
 
@@ -73,7 +77,8 @@ void loop() {
       delay(1 * 60 * 1000);
 
       for (int i = 0; i <= 10; i++) {
-        voltage0 = avgFlow.reading(V_filterReset);
+        adc0 = ads.readADC_SingleEnded(0);
+        voltage0 = avgFlow.reading(adc0 * 2);
         delay(10);
       }
 
@@ -81,12 +86,9 @@ void loop() {
       SerialBT.println("60 seconds delay finished");
 
       // add buffer after delay finished.
-      for (int i = 0; i <= 20; i++) {
-        voltage0 = avgFlow.reading(1050);
-        delay(10);
-      }
 
-      for (int i = 0; i <= 5; i++) {
+
+      for (int i = 0; i <= 15; i++) {
         adc0 = ads.readADC_SingleEnded(0);
         voltage0 = avgFlow.reading(adc0 * 2);
         delay(10);
@@ -117,7 +119,8 @@ void loop() {
       delay(1 * 60 * 1000);
 
       for (int i = 0; i <= 10; i++) {
-        voltage0 = avgFlow.reading(V_filterReset);
+        adc0 = ads.readADC_SingleEnded(0);
+        voltage0 = avgFlow.reading(adc0 * 2);
         delay(10);
       }
 
@@ -126,15 +129,12 @@ void loop() {
 
 
       // add buffer after delay finished.
-      for (int i = 0; i <= 20; i++) {
-        voltage0 = avgFlow.reading(V_filterReset);
-        delay(10);
-      }
-      for (int i = 0; i <= 5; i++) {
+      for (int i = 0; i <= 15; i++) {
         adc0 = ads.readADC_SingleEnded(0);
         voltage0 = avgFlow.reading(adc0 * 2);
         delay(10);
       }
+
 
       Serial.printf("flow=  %.2f mV.\r\n", voltage0);
       SerialBT.printf("flow=  %.2f mV.\r\n", voltage0);
